@@ -1,0 +1,85 @@
+.contanier {
+	
+	width: 100%;
+	max-width: #{$maxWidth}px;
+	margin: 0 auto;
+	animation: slide .3s  ease-in-out;
+}
+
+.link {
+
+	color: $linkTxtColor;
+	font-weight: bold;
+	transition: all .2s ease;
+
+	text-decoration: underline transparent;
+	&:hover,
+	&:focus {
+	text-decoration: underline currentColor;
+	}
+	
+}
+
+.button {
+	cursor: pointer;
+	padding: 0.5em 1em;
+	display: inline-block;
+	font-weight: bold;
+	border-radius: .5rem;
+	background-color: #7777;
+	color: $titleTxtColor;
+	font-size: 1.3rem;
+	transition: all .2s easy;
+}
+.button:disabled
+{
+	pointer-events: none;
+}
+.button.active
+{
+box-shadow:0 0 3px 2px $mainAccentColor ;
+}
+
+.button:hover,
+.button:focus
+{
+	background-color: $bgColor1;
+	box-shadow: $mainAccentColor 0 0 3px 1px;
+	border-color:$mainAccentColor;
+	color: $mainAccentColor;
+	transition: all 0.2s ease;
+}
+
+.button,
+input[type="text"] {
+	border-radius: 3px;
+	border: 1px solid rgb(118, 118, 118);
+}
+
+input[type="text"] {
+	padding: 0.5em 0.25em;
+}
+
+.title {
+	color: $titleTxtColor;
+	line-height: 1.5em;
+	font-weight: bold;
+	font-size: 1.4em;
+}
+h1.title{
+	font-size: 2.1em;
+	text-shadow: 0 0  3px;
+}
+
+.font-bold{
+font-weight: bold;
+}
+
+
+@keyframes slideIn {
+	0%    {opacity: 0; transform:  translate(0, -1.5em); }
+	100%  {opacity: 1; transform:  translate(0, 0);}
+}
+.hidden{
+	display: none;
+}
