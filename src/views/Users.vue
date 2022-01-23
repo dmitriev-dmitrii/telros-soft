@@ -4,11 +4,12 @@
 
 <div v-if="list.length > 0 && !loading">
 
-  <h1 class="title">Список пользователей</h1>
-
-  <modal-user-form method="create">Создать Пользователя</modal-user-form>
-
   <div class="users">
+
+      <h1 class="title">Список пользователей</h1>
+
+        <modal-user-form method="create">Создать Пользователя</modal-user-form>
+
     <div class="users__list">
     <router-link  class="users__item " v-for="user of list" :key="user._id" :to="`/users/${user._id}`">
       <h2>{{user.name}}</h2> 
@@ -37,7 +38,7 @@ export default {
 computed : {
   list :function(){ return  this.$store.state.users.list},
 },
-created: function () {
+mounted: function () {
     this.loading= true;
 
     this.$store.dispatch('GET_USERS').then(() => {
@@ -58,6 +59,7 @@ created: function () {
   $cards:1;
   // количество карточек при медиазапросе
   &__list{
+  margin-top: 3rem;
   display: flex;
   flex-wrap: wrap;
   margin-left: - $base-margin ;
@@ -101,10 +103,14 @@ text-transform: capitalize;
   }
   }
 
-  .users__create-button{
-    margin: 1rem 0;
-  }
 }
 
+.users  > .title{
+  text-align: center;
+  margin: 1em 0;
+}
 
+.users .button{
+    margin: 1rem 0;
+}
 </style>

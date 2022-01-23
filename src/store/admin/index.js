@@ -7,7 +7,7 @@ export default {
   state: {
     name:'' ,
     pasword:'',
-    isLogin:false,
+    isLogin:true,
     serverMessage:''
   },
 
@@ -18,21 +18,22 @@ export default {
     UPDATE_NAME: (state,string) => {
         state.name=string;
       },
+    UPDATE_MESSAGE: (state,string) => {
+        state.serverMessage=string;
+    },
   },
 
   actions: {
     LOGIN: async (context,data) => {
-      
+
+      context.commit('UPDATE_MESSAGE', '' )
       const request = await  axios.post( url + '/admin-login', data )
-
-      // console.log(request);
-
+      console.log(request);
       if (request.status == 401) { context.commit('UPDATE_LOGIN', false ) }
       if (request.status == 200) { 
-
         context.commit('UPDATE_LOGIN', request.data.logined )
         context.commit('UPDATE_NAME', request.data.name )
-      
+        context.commit('UPDATE_MESSAGE', request.data.message )
       }
 
     },

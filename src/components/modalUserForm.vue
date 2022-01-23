@@ -4,7 +4,7 @@
 
 <div class=" user-form__overlay" :class="{'active': showModal }">
 
-<fieldset class="user-form__wrapper">
+<fieldset class="user-form__wrapper"  >
 
 	<legend><h1 class="title"> Заполните Форму</h1></legend>
 
@@ -20,7 +20,8 @@
 		<input id="patronymic" v-model="user.patronymic" type="text" >
 
 		<label  for="born-date">Дата Рождения</label>
-		<input id="born-date" v-model="user.bornDate" type="text" >
+		<input id="born-date" v-model="user.bornDate" type="date" >
+		
 
 		<label  for="email">email</label>
 		<input id="email" v-model="user.email" type="email" placeholder="*" required="true">
@@ -32,11 +33,11 @@
 		<input id="img"  type="file" > -->
 
 		<span>
-			<loading-spinner v-show="loading"> Загрузка </loading-spinner> 
+			<loading-spinner :class="{active : loading }" > Загрузка... </loading-spinner> 
 		</span>
 		<div class="user-form__buttons-wrapper">
-			<button type="button"  class="button" @click="showModal = false">Oтмена</button>
-			<button type="submit" class="button">  <slot>  </slot>  </button>
+			<button type="button"  class="button" @click="showModal = false">Закрыть</button>
+			<button type="submit" class="button">  <slot> Отправить </slot>  </button>
 		</div>
 
 	</form>
@@ -79,8 +80,18 @@ props: {
 methods: {
 
 	sendForm ()  {
-		if (this.method === 'create') { 	this.$store.dispatch('CREATE_USER', this.user ) }
-		if (this.method === 'edit') {  this.$store.dispatch('EDIT_USER',  this.user ) }
+		this.loading=true;
+		if (this.method === 'create') { this.$store.dispatch('CREATE_USER', this.user ).then(() => {
+			this.loading=false;
+		}).catch(() => {
+			this.loading=false;
+		}); }
+		
+		if (this.method === 'edit') {  this.$store.dispatch('EDIT_USER',  this.user ).then(() => {
+			this.loading=false;
+		}).catch(() => {
+			this.loading=false;
+		});}
 	},
 
 

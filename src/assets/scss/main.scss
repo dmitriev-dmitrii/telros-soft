@@ -46,7 +46,8 @@ box-shadow:0 0 3px 2px $mainAccentColor ;
 	background-color: $bgColor1;
 	box-shadow: $mainAccentColor 0 0 3px 1px;
 	border-color:$mainAccentColor;
-	color: $mainAccentColor;
+	background-color: darken( $mainAccentColor, 30);
+	color: white;
 	transition: all 0.2s ease;
 }
 
@@ -79,4 +80,9 @@ font-weight: bold;
 @keyframes slideIn {
 	0%    {opacity: 0; transform:  translate(0, -1.5em); }
 	100%  {opacity: 1; transform:  translate(0, 0);}
+}
+
+.admin-name{
+	color: $mainAccentColor;
+	text-transform: capitalize;
 }

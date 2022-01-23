@@ -5,7 +5,7 @@
     <router-link to="/">Home</router-link> 
     <router-link to="/users">Пользователи</router-link> 
     <router-link to="/login"> <span v-if="!isLogin">Войти</span> <span v-else> Выйти</span> </router-link>
-    <h1>isLogin {{isLogin}}</h1>
+
   </div>
 
   <router-view/>
@@ -18,7 +18,7 @@ export default {
     name :function(){ return  this.$store.state.admin.name}
   },
 
-  created:function () {
+  mounted:function () {
     this.$store.dispatch('LOGIN_TEST').then(() => {
       
       if (!this.isLogin){ 

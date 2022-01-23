@@ -3,12 +3,12 @@
   
   <loading-spinner v-show="loading"></loading-spinner>
   <div class="user" v-if="!loading">
-  <h1>
+  <h1 class="title">
     <span>{{user.name}}</span><span>{{user.sureName}}</span><span v-if="!!user.patronymic">{{user.patronymic}}</span>
   </h1>
-  <p>Дата рождения : <span>{{user.bornDate}}</span> </p>
-  <p>Электронная почта : <a class="link" v-if="!!user.email" :href="`mailto:${user.email}`" > {{user.email}} </a> </p>
-  <p>Номер телефона : <a class="link" v-if="!!user.phone" :href="`tel:${user.phone}`"> {{user.phone}} </a> </p>
+    <p v-if="!!user.bornDate">Дата рождения : <span>{{ formatData(user.bornDate) }}</span> </p>
+    <p v-if="!!user.email">Электронная почта : <a class="link" v-if="!!user.email" :href="`mailto:${user.email}`" > {{user.email}} </a> </p>
+    <p v-if="!!user.phone">Номер телефона : <a class="link" v-if="!!user.phone" :href="`tel:${user.phone}`"> {{user.phone}} </a> </p>
 
   <div class="user__buttons">
     <modal-user-form method="edit" :user="user">Редактировать</modal-user-form>
@@ -39,7 +39,7 @@ export default {
     user :function(){ return  this.$store.state.user.item},
   },
 
-created: function () {
+  mounted: function () {
     this.loading= true;
     this.$store.dispatch('GET_USER',this.currentId ).then(() => {
     this.loading= false;
@@ -61,7 +61,9 @@ created: function () {
         this.loading= false;
         });
 	},
-
+	formatData (data) {
+		return data.split('T')[0]
+	}
 }
 
 }
@@ -78,12 +80,14 @@ created: function () {
 }
 .user>h1 
 {
-  font-size: 2em;
+  // font-size: 2em;
   text-transform: capitalize;
+  align-self: flex-end;
 }
 .user
-{ position: relative;
-  padding: 1em;
+{ 
+  margin-top: 3rem;
+  padding: 2rem;
   border-radius: .5rem;
   border: 1px solid currentColor;
   overflow: hidden;

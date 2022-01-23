@@ -1,6 +1,8 @@
 <template>
 <div class="my-spiner__wrapper">
-	<div class="my-spiner "></div>
+	<div class="my-spiner ">
+		
+	</div>
 	<slot></slot>
 </div>
 </template>
@@ -16,6 +18,11 @@ export default {
 display: flex;
 justify-content: center;
 align-items: center;
+
+opacity: 0;
+}
+.my-spiner__wrapper.active{
+opacity: 1;
 }
 .my-spiner{
 	background-color: transparent;
@@ -23,12 +30,12 @@ align-items: center;
 	width:2rem;
 	display: inline-block;
 	border-radius: 50%;
-	border:.1em solid   $mainAccentColor ; 
-	border-top: .1em solid darken($mainAccentColor , 30) ;
+	border:.2em solid  darken($mainAccentColor , 30) ; 
+	border-top: .2em solid  $mainAccentColor ;
 	animation: spiner 1.7s linear infinite;
-margin-right: .5em;
-
+	margin-right: .5em;
 }
+
 @keyframes spiner {
 	0%   { 
 		transform: rotate(0deg) ;
