@@ -1,9 +1,13 @@
 <template>
 <main class="contanier">
-<loading-spiner v-show="loading"></loading-spiner>
+<loading-spinner v-show="loading"> Загрузка списка пользователей</loading-spinner>
 
 <div v-if="list.length > 0 && !loading">
-  <h1>Список пользователей</h1>
+
+  <h1 class="title">Список пользователей</h1>
+
+  <modal-user-form method="create">Создать Пользователя</modal-user-form>
+
   <div class="users">
     <div class="users__list">
     <router-link  class="users__item " v-for="user of list" :key="user._id" :to="`/users/${user._id}`">
@@ -21,10 +25,10 @@
 </template>
 
 <script>
-import loadingSpiner from '@/components/loadingSpiner'
-
+import loadingSpinner from '@/components/loadingSpinner'
+import modalUserForm from '@/components/modalUserForm'
 export default {
-  components : {loadingSpiner },
+  components : { loadingSpinner ,modalUserForm},
   data: ()=> {
     return{
       loading:true,
@@ -95,6 +99,10 @@ text-transform: capitalize;
   // 3cards
   width:calc( ( 100% - $base-margin * ($cards * 2) )  / $cards ) ;
   }
+  }
+
+  .users__create-button{
+    margin: 1rem 0;
   }
 }
 

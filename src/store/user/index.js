@@ -1,7 +1,7 @@
 import axios from 'axios';
 axios.defaults.withCredentials = true;
 
-import  url  from  '@/url'
+import  url  from  '@/url';
 
 export default {
   state: {
@@ -14,6 +14,7 @@ export default {
       phone:'',
       img:'',
     },
+    
   },
   
   mutations: {
@@ -28,6 +29,39 @@ export default {
         // console.log(request);
         context.commit('UPDATE_USER', request.data )
       }
+    },
+    CREATE_USER: async (context,data) => {
+      
+      const request = await  axios.post( url + '/create-user', data )
+
+      // console.log(request);
+
+      // if (request.status == 401) { context.commit('UPDATE_LOGIN', false ) }
+      if (request.status == 200) { 
+        console.log(request);
+        // context.commit('UPDATE_USER', request.data )
+      }
+    },
+
+    EDIT_USER: async (context,data) => {
+      
+      const request = await  axios.put( url + '/update-user', data )
+
+      if (request.status == 200) { 
+        // console.log(request);
+        context.commit('UPDATE_USER', request.data )
+      }
+
+    },
+
+    DELETE_USER: async (context,id) => {
+      
+      const request = await  axios.post( url + '/delete-user', id )
+
+      if (request.status == 200) { 
+        console.log(request);
+      }
+
     },
   },
 

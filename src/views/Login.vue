@@ -2,27 +2,28 @@
 <main class="contanier">  
 <fieldset v-if="!isLogin">
   <legend><h1>Авторизация</h1></legend>
-  <form @submit.prevent="sendForm" class="login-form">
+  <form @submit.prevent="login" class="login-form">
     <input  v-model="formName" type="text">
     <input v-model="formPassword" type="pasword">
-    <div ><loading-spiner :class="{ 'hidden' : !loading }"/> </div>
-    <button type="submit"> send  </button>
+    <div > </div>
+    <button type="submit"> send <loading-spinner v-show="loading"> Загрузка </loading-spinner>  </button>
   </form>
 </fieldset>
 
 <div v-else>
   <h1>Вы авторизованы  как <span>{{name}}</span> </h1>
   <h2> Желаете выйти ?</h2>
-  <button>выйти</button> <button @click="$router.go(-1)">Назад</button>
+  <button @click="logout">выйти</button> <button >Назад</button>
 </div>
+
 </main>
 </template>
 <script>
 
-import loadingSpiner from '@/components/loadingSpiner'
+import loadingSpinner from '@/components/loadingSpinner'
 
 export default {
-  components : {loadingSpiner },
+  components : {loadingSpinner },
   data: ()=> {
     return{
       formName:'admin',
@@ -36,7 +37,7 @@ computed : {
   name :function(){ return  this.$store.state.admin.name}
 },
   methods : {
-    sendForm : function () {
+    login : function () {
 
       this.loading=true;
 
@@ -46,6 +47,14 @@ computed : {
       })
       .then(()=> { 
         if ( this.isLogin ){this.$router.push('/users');}
+        this.loading=false; 
+        })
+    },
+
+      logout : function () {
+      this.loading=true;
+      this.$store.dispatch('LOGOUT')
+      .then(()=> { 
         this.loading=false; 
         })
     }

@@ -1,6 +1,7 @@
 <template>
 <main class="contanier">
-  <loading-spiner v-show="loading"></loading-spiner>
+  
+  <loading-spinner v-show="loading"></loading-spinner>
   <div class="user" v-if="!loading">
   <h1>
     <span>{{user.name}}</span><span>{{user.sureName}}</span><span v-if="!!user.patronymic">{{user.patronymic}}</span>
@@ -8,7 +9,12 @@
   <p>Дата рождения : <span>{{user.bornDate}}</span> </p>
   <p>Электронная почта : <a class="link" v-if="!!user.email" :href="`mailto:${user.email}`" > {{user.email}} </a> </p>
   <p>Номер телефона : <a class="link" v-if="!!user.phone" :href="`tel:${user.phone}`"> {{user.phone}} </a> </p>
-<button class="edit-button button">Редактировать</button>
+
+  <div class="user__buttons">
+    <modal-user-form method="edit" :user="user">Редактировать</modal-user-form>
+    <button class="button" @click="deleteUser">Удалить</button>
+  </div>
+
   </div>
 
 </main>
@@ -16,11 +22,11 @@
 
 <script>
 
-import loadingSpiner from '@/components/loadingSpiner'
-
+import loadingSpinner from '@/components/loadingSpinner'
+import modalUserForm from '@/components/modalUserForm'
 export default {
 
-  components : {loadingSpiner },
+  components : {loadingSpinner,modalUserForm },
 
   data: ()=> {
     return{
@@ -41,8 +47,23 @@ created: function () {
     .catch(() => {
     this.loading= false;
     });
-  
+  },
+  methods: {
+
+	deleteUser ()  {
+        this.loading= true;
+        this.$store.dispatch('DELETE_USER',{_id:this.currentId} )
+        .then(() => {
+          this.loading= false;
+          this.$router.go(-1)
+        })
+          .catch(() => {
+        this.loading= false;
+        });
+	},
+
 }
+
 }
 </script>
 <style lang='scss'>
@@ -67,11 +88,10 @@ created: function () {
   border: 1px solid currentColor;
   overflow: hidden;
 }
-.edit-button{
-  
-  position: absolute;
-  right: 0;
-  top: 0;
-
+.user__buttons{
+  align-self: flex-end;
+}
+.user__buttons .button {
+  margin-left: 1rem;
 }
 </style>
