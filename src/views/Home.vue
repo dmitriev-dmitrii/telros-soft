@@ -1,17 +1,27 @@
 <template>
-<main class="contanier">
-    <h1>Home</h1>
-    <loading-spinner>loading</loading-spinner>
+<main class="contanier home">
+    <h1 class="title"> Teslros Soft </h1>
+    <h2>Full stack приложение для тестового задания</h2>
+
+    <p>
+    Backend : node JS (express)  + Mongo DB <br>
+    Front : VueJs 3 , Scss
+
+
+    </p>
 
 </main>
 </template>
 
 <script>
 
-import loadingSpinner from '@/components/loadingSpinner'
 
 export default {
 
-components : {loadingSpinner},
 }
 </script>
+<style lang='scss'>
+.home p{
+margin: 3rem 0;
+}
+</style>

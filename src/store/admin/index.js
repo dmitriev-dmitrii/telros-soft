@@ -7,7 +7,7 @@ export default {
   state: {
     name:'' ,
     pasword:'',
-    isLogin:true,
+    isLogin:false,
     serverMessage:''
   },
 
