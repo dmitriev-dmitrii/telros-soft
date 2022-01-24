@@ -7,24 +7,33 @@
     <router-link to="/login"> <span v-if="!isLogin">Войти</span> <span v-else> Выйти</span> </router-link>
 
   </div>
-
-  <router-view/>
-
+  <loading-spinner :class="{active : loading }"> Проверяем доступ </loading-spinner>
+  <router-view v-show="!loading"/>
+  
 </template>
 <script>
+import loadingSpinner from '@/components/loadingSpinner'
 export default {
+  components : {loadingSpinner },
+  data: ()=>{
+    return {
+      loading:true
+    }
+  },
   computed:{
     isLogin :function(){ return  this.$store.state.admin.isLogin},
-    name :function(){ return  this.$store.state.admin.name}
+    name :function(){ return  this.$store.state.admin.name},
   },
 
   mounted:function () {
     this.$store.dispatch('LOGIN_TEST').then(() => {
-      
+
       if (!this.isLogin){ 
         // console.log('app pushed /login');
         this.$router.push('/login')
         }
+
+      this.loading=false;
     })
   }
 }

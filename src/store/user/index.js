@@ -39,7 +39,7 @@ export default {
       // if (request.status == 401) { context.commit('UPDATE_LOGIN', false ) }
       if (request.status == 200) { 
         console.log(request);
-        // context.commit('UPDATE_USER', request.data )
+        context.commit('UPDATE_LIST', request.data )
       }
     },
 

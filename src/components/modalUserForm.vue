@@ -83,12 +83,14 @@ methods: {
 		this.loading=true;
 		if (this.method === 'create') { this.$store.dispatch('CREATE_USER', this.user ).then(() => {
 			this.loading=false;
+			this.showModal = false;
 		}).catch(() => {
 			this.loading=false;
 		}); }
 		
 		if (this.method === 'edit') {  this.$store.dispatch('EDIT_USER',  this.user ).then(() => {
 			this.loading=false;
+			this.showModal = false;
 		}).catch(() => {
 			this.loading=false;
 		});}

@@ -1,5 +1,5 @@
 <template>
-<main class="contanier login-form__main">  
+<main class="contanier login-form__main " v-cloak>  
 
 <fieldset v-if="!isLogin" class="login-form__wrapper">
   <legend><h1 class="title">Авторизация</h1></legend>
