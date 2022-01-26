@@ -2,6 +2,11 @@ import { createRouter, createWebHistory } from 'vue-router'
 import store from '@/store'
 
 const routes = [
+  { 
+    path: '/error', 
+    name: 'error', 
+    component: () => import('@/views/Error.vue'), 
+  },
   {
     path: '/',
     name: 'Home',

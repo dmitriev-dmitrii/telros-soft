@@ -60,7 +60,7 @@ export default {
           if (request.data.logined) 
             { context.commit('UPDATE_NAME',  request.data.name )}
         }
-        
+
     },
 
   },
